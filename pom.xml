@@ -179,68 +179,68 @@
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <image>
-                                <builder>paketobuildpacks/builder-jammy-base:latest</builder>
-                                <env>
-                                    <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                                    <BP_JVM_VERSION>21</BP_JVM_VERSION>
-                                    <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
-                                        --no-fallback
-                                        -H:+ReportExceptionStackTraces
-                                        -H:+AddAllCharsets
-                                    </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>
-                                </env>
-                            </image>
-                        </configuration>
+<!--                        <configuration>-->
+<!--                            <image>-->
+<!--                                <builder>paketobuildpacks/builder-jammy-base:latest</builder>-->
+<!--                                <env>-->
+<!--                                    <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>-->
+<!--                                    <BP_JVM_VERSION>21</BP_JVM_VERSION>-->
+<!--                                    <BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-->
+<!--                                        &#45;&#45;no-fallback-->
+<!--                                        -H:+ReportExceptionStackTraces-->
+<!--                                        -H:+AddAllCharsets-->
+<!--                                    </BP_NATIVE_IMAGE_BUILD_ARGUMENTS>-->
+<!--                                </env>-->
+<!--                            </image>-->
+<!--                        </configuration>-->
                     </plugin>
                 </plugins>
             </build>
         </profile>
 
     <!--  Default JVM image with ZGC ZGen. with cloud buildpack  -->
-        <profile>
-            <id>jvm</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <image>
-                                <env>
-                                    <JAVA_TOOL_OPTIONS>-XX:+UseZGC -XX:+ZGenerational</JAVA_TOOL_OPTIONS>
-                                </env>
-                            </image>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+<!--        <profile>-->
+<!--            <id>jvm</id>-->
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.springframework.boot</groupId>-->
+<!--                        <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                        <configuration>-->
+<!--                            <image>-->
+<!--                                <env>-->
+<!--                                    <JAVA_TOOL_OPTIONS>-XX:+UseZGC -XX:+ZGenerational</JAVA_TOOL_OPTIONS>-->
+<!--                                </env>-->
+<!--                            </image>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
 
 <!--    Auto-detect OS and override Docker socket path to a localized rootless Podman user path for Windows or Linux    -->
-        <profile>
-            <id>os-windows</id>
-            <activation>
-                <os><family>windows</family></os>
-            </activation>
-            <properties>
-                <docker.socket>npipe:////./pipe/podman-machine-default</docker.socket>
-            </properties>
-        </profile>
+<!--        <profile>-->
+<!--            <id>os-windows</id>-->
+<!--            <activation>-->
+<!--                <os><family>windows</family></os>-->
+<!--            </activation>-->
+<!--            <properties>-->
+<!--                <docker.socket>npipe:////./pipe/podman-machine-default</docker.socket>-->
+<!--            </properties>-->
+<!--        </profile>-->
 
-        <profile>
-            <id>os-linux</id>
-            <activation>
-                <os><family>unix</family></os>
-            </activation>
-            <properties>
-                <docker.socket>unix:///run/user/1000/podman/podman.sock</docker.socket>
-            </properties>
-        </profile>
+<!--        <profile>-->
+<!--            <id>os-linux</id>-->
+<!--            <activation>-->
+<!--                <os><family>unix</family></os>-->
+<!--            </activation>-->
+<!--            <properties>-->
+<!--                <docker.socket>unix:///run/user/1000/podman/podman.sock</docker.socket>-->
+<!--            </properties>-->
+<!--        </profile>-->
     </profiles>
 
     <build>
@@ -257,26 +257,26 @@
                             </goals>
                         </execution>
                     </executions>
-                    <configuration>
-                        <excludes>
-                            <exclude>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                            </exclude>
-                        </excludes>
-                        <image>
-                            <builder>paketobuildpacks/builder-jammy-tiny:latest</builder>
-                            <name>payment-gateway/${project.artifactId}:${project.version}</name>
-                            <env>
-                                <BP_JVM_VERSION>21</BP_JVM_VERSION>
-                                <JAVA_TOOL_OPTIONS>-XX:+UseZGC -XX:+ZGenerational</JAVA_TOOL_OPTIONS>
-                            </env>
-                        </image>
-                        <docker>
-                            <host>${docker.socket}</host>
-                            <tlsVerify>false</tlsVerify>
-                        </docker>
-                    </configuration>
+<!--                    <configuration>-->
+<!--                        <excludes>-->
+<!--                            <exclude>-->
+<!--                                <groupId>org.projectlombok</groupId>-->
+<!--                                <artifactId>lombok</artifactId>-->
+<!--                            </exclude>-->
+<!--                        </excludes>-->
+<!--                        <image>-->
+<!--                            <builder>paketobuildpacks/builder-jammy-tiny:latest</builder>-->
+<!--                            <name>payment-gateway/${project.artifactId}:${project.version}</name>-->
+<!--                            <env>-->
+<!--                                <BP_JVM_VERSION>21</BP_JVM_VERSION>-->
+<!--                                <JAVA_TOOL_OPTIONS>-XX:+UseZGC -XX:+ZGenerational</JAVA_TOOL_OPTIONS>-->
+<!--                            </env>-->
+<!--                        </image>-->
+<!--                        <docker>-->
+<!--                            <host>${docker.socket}</host>-->
+<!--                            <tlsVerify>false</tlsVerify>-->
+<!--                        </docker>-->
+<!--                    </configuration>-->
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -300,21 +300,21 @@
                     <artifactId>native-maven-plugin</artifactId>
                     <version>${native-maven-plugin.version}</version>
                     <extensions>true</extensions>
-                    <configuration>
-                        <skip>${native.skip}</skip>
-                        <fallback>false</fallback>
-                        <buildArgs>
+<!--                    <configuration>-->
+<!--                        <skip>${native.skip}</skip>-->
+<!--                        <fallback>false</fallback>-->
+<!--                        <buildArgs>-->
 
-                            <arg>-O3</arg>
-                            <arg>--no-fallback</arg>
-                            <arg>-H:+ReportExceptionStackTraces</arg>
-                            <arg>-H:+AddAllCharsets</arg>
-                            <arg>-H:EnableURLProtocols=http,https</arg>
-                            <arg>-H:EnableURLProtocols=http,https</arg>
+<!--                            <arg>-O3</arg>-->
+<!--                            <arg>&#45;&#45;no-fallback</arg>-->
+<!--                            <arg>-H:+ReportExceptionStackTraces</arg>-->
+<!--                            <arg>-H:+AddAllCharsets</arg>-->
+<!--                            <arg>-H:EnableURLProtocols=http,https</arg>-->
+<!--                            <arg>-H:EnableURLProtocols=http,https</arg>-->
 
-                            <arg>-J-Xmx8g</arg>
-                        </buildArgs>
-                    </configuration>
+<!--                            <arg>-J-Xmx8g</arg>-->
+<!--                        </buildArgs>-->
+<!--                    </configuration>-->
                 </plugin>
 
                 <plugin>
